@@ -1,0 +1,145 @@
+*, *:after, *:before {
+  box-sizing: border-box;
+  margin: 0;
+  padding: 0;
+}
+
+body {
+  background: #101922;
+  color: white;
+  font-family: Arial, Helvetica, Verdana, sans-serif;
+}
+
+header {
+  height: 300px;
+  display: flex;
+  flex-wrap: wrap;
+  flex-direction: column;
+  justify-content: center;
+  margin: 0 auto;
+  max-width: 1200px;
+  padding: 0 15px;
+}
+
+.achiv-wrapper {
+  background: #182937;
+  display: flex;
+  flex-wrap: wrap;
+  margin: 0 auto;
+  max-width: 1200px;
+  padding: 9px;
+}
+
+.achiv-container {
+  width: 100%;
+  padding: 6px 10px;
+}
+
+.achiv {
+  background: #080D11;
+  display: flex;
+  padding: 0 24px;
+  border: transparent solid;
+  transition: all 0.2s;
+  height: 125px;
+}
+
+.tracked {
+  border: #e7ce00 solid;
+}
+
+.achiv:hover {
+  border: #e7ce00 solid;
+  cursor: pointer;
+}
+
+.achiv-title {
+  font-weight: bold;
+  font-size: 16px;
+  color: #e1e1e1;
+}
+
+.achiv-descr {
+  font-weight: normal;
+  font-size: 12px;
+  color: #898989;
+}
+
+.achiv-descr-wrapper {
+  width: 100%;
+  padding: 15px;
+  display: flex;
+  flex-direction: column;
+}
+
+.achiv-descr-wrapper > * {
+  padding: 5px 0;
+}
+
+.achiv-image {
+  object-fit: contain;
+}
+
+.achiv-wrapper-title {
+  width: 100%;
+  padding: 6px 10px;
+  font-size: 20px;
+  font-weight: bold;
+  margin-top: 10px;
+}
+
+input[type="submit"] {
+  display: inline-block;
+  cursor: pointer;
+  text-decoration: none;
+  color: #67c1f5;
+  background: rgba( 103, 193, 245, 0.2 );
+  padding: 0 15px;
+  font-size: 15px;
+  line-height: 30px;
+  transition: all 0.2s;
+}
+
+input[type="submit"]:hover {
+  color: #fff;
+  background: #417a9b;
+}
+
+.header-input {
+  margin-top: 5px;
+  padding: 10px 12px;
+  text-align: center;
+  background: #080D11;
+  border: none;
+  color: #e1e1e1;
+  border-right: #0F1922 solid;
+  border-left: #0F1922 solid;
+}
+
+.todo {
+  list-style-type: none;
+  margin: 0;
+  padding: 10px 0;
+}
+
+.header-inputs-wrapper {
+  display: flex;
+  justify-content: space-between;
+  flex-direction: column;
+}
+
+.header-inputs-wrapper > * {
+  flex: 1;
+}
+
+@media (min-width: 992px) {
+  .achiv-container {
+    width: 50%;
+  }
+}
+
+@media (min-width: 992px) {
+  .header-inputs-wrapper {
+    flex-direction: row;
+  }
+}
