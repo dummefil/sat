@@ -18,7 +18,6 @@ header {
   justify-content: center;
   margin: 0 auto;
   max-width: 1200px;
-  padding: 0 15px;
 }
 
 .achiv-wrapper {
@@ -142,4 +141,26 @@ input[type="submit"]:hover {
   .header-inputs-wrapper {
     flex-direction: row;
   }
+}
+
+.link {
+  flex-shrink: 0;
+  display: flex;
+  align-items: center;
+}
+
+.link a {
+  color: #67c1f5;
+  transition: 300ms all linear;
+  text-decoration: none;
+}
+
+.link:hover a {
+  color: #0ca4f5;
+}
+
+.ddg-icon {
+  width: 32px;
+  height: 32px;
+  padding: 5px;
 }

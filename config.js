@@ -3,6 +3,7 @@ module.exports = {
     "port": process.env.PORT || 8081
   },
   "steam": {
-    "key": process.env.STEAM_KEY,
+    hideSteamKey: true,
+    "key": '0788AFB38C2D400C1A704C280087E77C',
   }
 }

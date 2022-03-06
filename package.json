@@ -11,10 +11,10 @@
     "nodemon": "^2.0.4",
     "pug": "^2.0.4",
     "request": "^2.88.2",
-    "request-promise": "^4.2.5"
+    "request-promise": "^4.2.6"
   },
   "devDependencies": {
-    "browser-sync": "^2.26.7"
+    "browser-sync": "^2.26.12"
   },
   "scripts": {
     "test": "echo \"Error: no test specified\" && exit 1",

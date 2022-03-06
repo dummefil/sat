@@ -33,9 +33,11 @@ async function mainPageHandler(req, res, next) {
     const { appid, steamid, lang = 'russian' } = req.query;
     const renderData = { title: 'Achievements tracker' };
     if (steamid && appid) {
-      renderData.achievements = await getAchievements(appid, steamid, lang);
+      const gameData = await getGameData(appid, lang);
+      renderData.achievements = await getAchievements(gameData, appid, steamid, lang);
       renderData.steamid = steamid;
       renderData.appid = appid;
+      renderData.gameName = gameData.gameName;
       try {
         db.getData(`/${steamid}/${appid}`);
       } catch (e) {
@@ -70,8 +72,7 @@ function errorHandler(error, req, res, next) {
   res.send('Error code: 503. Please contact dimatonkih@gmail.com')
 }
 
-async function getAchievements(appid, steamid, lang) {
-  const gameData = await getGameData(appid, lang);
+async function getAchievements(gameData, appid, steamid, lang) {
   const userAchievements = await getUserAchievements(steamid, appid, lang);
   const allAchievements = gameData.availableGameStats.achievements;
   return parseAchievements(allAchievements, userAchievements, steamid, appid);
@@ -127,7 +128,12 @@ async function parseAchievements(allAchievements, userAchievements, steamid, app
 
 function request(url, qs) {
   function transform(body, requestObj) {
-    console.log('Going to url:', requestObj.request.url.href);
+    let requestUrl = requestObj.request.url.href;
+    if (config.steam.hideSteamKey) {
+      requestUrl = requestObj.request.url.href.replace(config.steam.key, 'HIDDEN')
+    }
+
+    console.log('Going to url:', requestUrl);
     return body;
   }
 

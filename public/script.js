@@ -51,7 +51,7 @@ async function request(url, data) {
     },
     body
   });
-  return await fetchRequest.json();
+  return fetchRequest.json();
 }
 
 
@@ -94,4 +94,3 @@ async function request(url, data) {
 //     };
 //   }
 // }
-
