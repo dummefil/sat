@@ -40,7 +40,6 @@ header {
   padding: 0 24px;
   border: transparent solid;
   transition: all 0.2s;
-  height: 125px;
 }
 
 .tracked {
@@ -115,12 +114,6 @@ input[type="submit"]:hover {
   border-left: #0F1922 solid;
 }
 
-.todo {
-  list-style-type: none;
-  margin: 0;
-  padding: 10px 0;
-}
-
 .header-inputs-wrapper {
   display: flex;
   justify-content: space-between;
@@ -163,4 +156,14 @@ input[type="submit"]:hover {
   width: 32px;
   height: 32px;
   padding: 5px;
+}
+
+.achiv-note {
+  position: relative;
+  height: 20px;
+  background-color: #2a3f5a;
+  border: 1px solid #000;
+  border-radius: 3px;
+  color: #fff;
+  padding: 10px;
 }

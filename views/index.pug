@@ -7,12 +7,6 @@ head
     meta(http-equiv="X-UA-Compatible", content="ie=edge")
 body
     header
-        ul(class="todo")
-            li get your steam id from profile
-            li todo game id from url && profile id from profile url
-            li handle Requested app has no stats appId to test: 260790
-            li "squeeze" template
-            li fix locked/unlocked achiv on "Find on ddg" click
         div(class="header-game-title")
             p #{gameName}
         div(class="header-inputs-wrapper")
@@ -34,6 +28,7 @@ if achievements
                         div(class="achiv-unlocked") #{achievement.unlocked}
                         div(class="achiv-title") #{achievement.displayName}
                         div(class="achiv-descr") #{achievement.description}
+                        input(class="achiv-note")
                     a(class="link" href=`https://duckduckgo.com//?q=${gameName}+${achievement.displayName}+site:stratege.ru` alt="Find in ddg")
                         img(class="ddg-icon" src="https://duckduckgo.com/assets/icons/meta/DDG-icon_256x256.png")
         if achievements.unlocked.length
@@ -46,5 +41,6 @@ if achievements
                         div(class="achiv-unlocked") #{achievement.unlocked}
                         div(class="achiv-title") #{achievement.displayName}
                         div(class="achiv-descr") #{achievement.description}
+                        input(class="achiv-note")
                     a(class="link" href=`https://duckduckgo.com//?q=${gameName}+${achievement.displayName}+site:stratege.ru` alt="Find in ddg")
                         img(class="ddg-icon" src="https://duckduckgo.com/assets/icons/meta/DDG-icon_256x256.png")

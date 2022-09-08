@@ -1,7 +1,6 @@
 let steamId;
 let gameId;
-
-// let storage;
+let storage;
 
 function submitHandler(event) {
   event.preventDefault();
@@ -15,7 +14,7 @@ function submitHandler(event) {
 }
 
 document.addEventListener('DOMContentLoaded', () => {
-  // storage = new Storage();
+  storage = new Storage();
   steamId = document.querySelector('.steamid').value;
   gameId = document.querySelector('.appid').value;
   const submitBtn = document.querySelector('.header-submit');
@@ -25,10 +24,22 @@ document.addEventListener('DOMContentLoaded', () => {
 
   achivBlocks.forEach((achivBlock) => {
     achivBlock.addEventListener('click', trackAchievement);
+    const id = achivBlock.dataset['id'];
+    const note = storage.get(id);
+    const inputNote = achivBlock.querySelector('.achiv-note');
+    inputNote.addEventListener('change', saveNote)
+
+    if (note) {
+      inputNote.value = note;
+    }
   })
 });
 
-//who cares about MEMEry leak ?
+function saveNote() {
+  const id = this.dataset['id'];
+  storage.set(id, this.value);
+}
+
 async function trackAchievement() {
   const id = this.dataset['id'];
   console.log('You clicked', id, gameId, steamId);
@@ -54,43 +65,19 @@ async function request(url, data) {
   return fetchRequest.json();
 }
 
+class Storage {
+  #storage = localStorage;
+  set(achievementId, data) {
+    const token = this.#makeToken(steamId, gameId, achievementId)
+    this.#storage.setItem(token, data);
+  }
 
-// function trackAchievement() {
-//   const id = this.dataset['id'];
-//   console.log('You clicked', id, gameId, steamId);
-//   const gameProfile = storage.get(steamId, gameId);
-//   const index = gameProfile.tracked.indexOf(id);
-//   if (index > -1) {
-//     gameProfile.tracked.push(id);
-//   } else {
-//     gameProfile.tracked.slice(index, index + 1);
-//   }
-//   storage.set(steamId, gameId, 'tracking', gameProfile.tracked)
-// }
+  get(achievementId) {
+    const token = this.#makeToken(steamId, gameId, achievementId)
+    return this.#storage.getItem(token);
+  }
 
-// class Storage {
-//   _storage = localStorage;
-//   set(steamId, gameId, key, data) {
-//
-//     let steamProfile = this._storage.getItem(steamId) || this._createSteamProfile();
-//     let gameProfile = steamProfile[gameId] || this._createGameProfile();
-//
-//     gameProfile[key] = data;
-//     steamProfile[gameId] = gameProfile;
-//     this._storage.setItem(steamId, steamProfile);
-//   }
-//
-//   get(steamId, gameId) {
-//     const steamProfile = this._storage.getItem(steamId) || this._createSteamProfile();
-//     return steamProfile[gameId] || this._createGameProfile();
-//   }
-//
-//   _createSteamProfile() {
-//     return {};
-//   }
-//   _createGameProfile() {
-//     return {
-//       tracked: [],
-//     };
-//   }
-// }
+  #makeToken(steamId, gameId, achievementId) {
+    return `${steamId}:${gameId}:${achievementId}`;
+  }
+}
