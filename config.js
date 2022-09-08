@@ -4,6 +4,6 @@ module.exports = {
   },
   "steam": {
     hideSteamKey: true,
-    "key": '0788AFB38C2D400C1A704C280087E77C',
+    "key": process.env.STEAM_TOKEN,
   }
 }
