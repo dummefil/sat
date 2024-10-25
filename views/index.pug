@@ -1,0 +1,46 @@
+head
+    link(rel="stylesheet", href="index.css")
+    title #{title}
+    script(src="script.js")
+    meta(charset="UTF-8")
+    meta(name="viewport", content="width=device-width, user-scalable=no, initial-scale=1.0, maximum-scale=1.0, minimum-scale=1.0")
+    meta(http-equiv="X-UA-Compatible", content="ie=edge")
+body
+    header
+        div(class="header-game-title")
+            p #{gameName}
+        div(class="header-inputs-wrapper")
+            input(class="steamid header-input" id="steamid" placeholder="Steam profile id" value=steamid)
+            input(class="appid header-input" id="appid" placeholder="Application id" value=appid)
+            select(class="lang header-input")
+                option(value="russian") Русский
+                option(value="english") English
+        input(class="header-submit header-input", type="submit" value="Track it!")
+if achievements
+    div(class="achiv-wrapper")
+        if achievements.locked.length
+        p(class="achiv-wrapper-title") Locked
+        each achievement in achievements.locked
+            div(class="achiv-container")
+                div(class="achiv " + achievement.trackedClass, data-id=achievement.id)
+                    img(src=achievement.icon, class="achiv-image")
+                    div(class="achiv-descr-wrapper")
+                        div(class="achiv-unlocked") #{achievement.unlocked}
+                        div(class="achiv-title") #{achievement.displayName}
+                        div(class="achiv-descr") #{achievement.description}
+                        textarea(class="achiv-note")
+                    a(class="link" href=`https://duckduckgo.com//?q=${gameName}+${achievement.displayName}+site:stratege.ru` alt="Find in ddg")
+                        img(class="ddg-icon" src="https://duckduckgo.com/assets/icons/meta/DDG-icon_256x256.png")
+        if achievements.unlocked.length
+        p(class="achiv-wrapper-title") Unlocked
+        each achievement in achievements.unlocked
+            div(class="achiv-container")
+                div(class="achiv", data-id=achievement.id)
+                    img(src=achievement.icon, class="achiv-image")
+                    div(class="achiv-descr-wrapper")
+                        div(class="achiv-unlocked") #{achievement.unlocked}
+                        div(class="achiv-title") #{achievement.displayName}
+                        div(class="achiv-descr") #{achievement.description}
+                        input(class="achiv-note")
+                    a(class="link" href=`https://duckduckgo.com//?q=${gameName}+${achievement.displayName}+site:stratege.ru` alt="Find in ddg")
+                        img(class="ddg-icon" src="https://duckduckgo.com/assets/icons/meta/DDG-icon_256x256.png")

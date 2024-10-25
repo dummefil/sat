@@ -1,0 +1,26 @@
+{
+  "name": "steam-achievements-tracker",
+  "version": "1.0.0",
+  "description": "",
+  "main": "index.js",
+  "dependencies": {
+    "body-parser": "^1.19.0",
+    "express": "^4.17.1",
+    "morgan": "^1.10.0",
+    "node-json-db": "^1.1.0",
+    "nodemon": "^2.0.4",
+    "pug": "^3.0.2",
+    "request": "^2.88.2",
+    "request-promise": "^0.0.1"
+  },
+  "devDependencies": {
+    "browser-sync": "^2.26.12"
+  },
+  "scripts": {
+    "test": "echo \"Error: no test specified\" && exit 1",
+    "start": "node index.js",
+    "dev": "nodemon index.js --ext js"
+  },
+  "author": "",
+  "license": "ISC"
+}
