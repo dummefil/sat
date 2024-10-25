@@ -5,21 +5,21 @@
   "main": "index.js",
   "dependencies": {
     "body-parser": "^1.19.0",
-    "express": "^4.17.1",
+    "dotenv": "^16.4.5",
+    "express": "^5.0.1",
     "morgan": "^1.10.0",
+    "node-fetch": "^3.3.2",
     "node-json-db": "^1.1.0",
-    "nodemon": "^2.0.4",
-    "pug": "^3.0.2",
-    "request": "^2.88.2",
-    "request-promise": "^0.0.1"
+    "nodemon": "^3.1.7",
+    "pug": "^3.0.2"
   },
   "devDependencies": {
-    "browser-sync": "^2.26.12"
+    "browser-sync": "^3.0.3"
   },
   "scripts": {
     "test": "echo \"Error: no test specified\" && exit 1",
     "start": "node index.js",
-    "dev": "nodemon index.js --ext js"
+    "dev": "DEBUG=express:* nodemon index.js --ext js"
   },
   "author": "",
   "license": "ISC"

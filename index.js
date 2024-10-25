@@ -1,3 +1,5 @@
+require('dotenv').config()
+
 const express = require('express');
 const path = require('path');
 const { JsonDB } = require('node-json-db');
@@ -15,13 +17,8 @@ app.use(morgan('tiny'));
 app.set('view engine', 'pug');
 app.set('views', './views');
 
-const asyncHandler = fn => (req, res, next) => {
-  Promise.resolve(fn(req, res, next)).catch(next);
-};
-
-app.get('/', asyncHandler(mainPageHandler));
-app.post('/track', asyncHandler(trackPostHandler));
-app.get('*', anyPageHandler);
+app.get('/', mainPageHandler);
+app.post('/track', trackPostHandler);
 
 app.use(errorHandler);
 
@@ -39,6 +36,7 @@ async function mainPageHandler(req, res) {
     const gameData = await getGameData(appid, language);
     renderData.achievements = await getAchievements(gameData, appid, steamid, language);
     renderData.steamid = steamid;
+    console.log(gameData);
     renderData.appid = appid;
     renderData.gameName = gameData.gameName;
 
@@ -55,10 +53,6 @@ async function trackPostHandler(req, res) {
   db.push(`/${steamId}/${gameId}/${id}`, tracked);
   console.log({ id, steamId, gameId, tracked });
   res.send({});
-}
-
-function anyPageHandler(req, res) {
-  res.redirect('/');
 }
 
 function errorHandler(err, req, res, next) {
