@@ -1,9 +1,9 @@
 module.exports = {
   "server": {
-    "port": process.env.PORT || 8081
+    "port": process.env.PORT
   },
   "steam": {
-    hideSteamKey: true,
+    hideSteamKey: process.env.HIDE_STEAM_TOKEN,
     "key": process.env.STEAM_TOKEN,
   }
 }

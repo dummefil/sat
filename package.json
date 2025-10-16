@@ -2,7 +2,7 @@
   "name": "steam-achievements-tracker",
   "version": "1.0.0",
   "description": "",
-  "main": "index.js",
+  "main": "server/index.js",
   "dependencies": {
     "body-parser": "^1.19.0",
     "dotenv": "^16.4.5",
@@ -17,9 +17,8 @@
     "browser-sync": "^3.0.3"
   },
   "scripts": {
-    "test": "echo \"Error: no test specified\" && exit 1",
-    "start": "node index.js",
-    "dev": "DEBUG=express:* nodemon index.js --ext js"
+    "start": "node server/index.js",
+    "dev": "nodemon server/index.js --ext js"
   },
   "author": "",
   "license": "ISC"

@@ -1,0 +1,51 @@
+extends ../layout/layout
+
+block nav
+    nav
+        div
+            img(src=userData.avatarfull)
+            div #{userData.personaname} | #{steamid}
+            select(class="input", id="lang")
+                option(value="russian") Русский
+                option(value="english") English
+
+block header
+    header
+        div(class="header-image")
+            if achievements
+                div(class="header-game-details")
+                    h3 #{gameName}
+                    if achievements.unlocked.length === achievements.count
+                        p(class='achiv-all-completed gold-shimmer') All completed!
+                    else
+                        p Total collected #{achievements.unlocked.length}/#{achievements.count}
+                img(src="https://cdn.cloudflare.steamstatic.com/steam/apps/" + appid + "/library_hero.jpg")
+
+block body
+    if achievements
+        div(class="achiv-wrapper")
+            if achievements.locked.length
+            p(class="achiv-wrapper-title") Locked (#{achievements.locked.length}/#{achievements.count})
+            each achievement in achievements.locked
+                div(class="achiv-container")
+                    div(class="achiv " + achievement.trackedClass, data-id=achievement.id)
+                        img(src=achievement.icon, class="achiv-image")
+                        div(class="achiv-descr-wrapper")
+                            div(class="achiv-title")
+                                p #{achievement.displayName}
+                                div(class="achiv-icons")
+                                    i(class="icon achiv-tracking")
+                                    i(class="icon")
+                                    a(href=`https://duckduckgo.com//?q=${gameName}+${achievement.displayName}+site:stratege.ru` alt="Find in ddg")
+                                        i(class="icon")
+                                            img(src="https://duckduckgo.com/assets/icons/meta/DDG-icon_256x256.png")
+                            div(class="achiv-descr") #{achievement.description}
+            if achievements.unlocked.length
+            p(class="achiv-wrapper-title") Unlocked (#{achievements.unlocked.length}/#{achievements.count})
+            each achievement in achievements.unlocked
+                div(class="achiv-container")
+                    div(class="achiv", data-id=achievement.id)
+                        img(src=achievement.icon, class="achiv-image")
+                        div(class="achiv-descr-wrapper")
+                            div(class="achiv-title") #{achievement.displayName}
+                            div(class="achiv-descr") #{achievement.description}

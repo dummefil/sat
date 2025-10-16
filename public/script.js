@@ -5,34 +5,24 @@ let storage;
 function submitHandler(event) {
   event.preventDefault();
   event.stopPropagation();
-  const steamid = document.querySelector('.steamid').value;
-  const appid = document.querySelector('.appid').value;
-  const lang = document.querySelector('.lang').value;
+  const steamid = document.querySelector('#steamid').value;
+  const appid = document.querySelector('#appid').value;
+  const lang = document.querySelector('#lang').value;
   const queryString = `?steamid=${steamid}&appid=${appid}&lang=${lang}`;
   this.removeEventListener('click', submitHandler);
   location.search = queryString;
 }
 
+
 document.addEventListener('DOMContentLoaded', () => {
   storage = new Storage();
-  steamId = document.querySelector('.steamid').value;
-  gameId = document.querySelector('.appid').value;
+  steamId = document.querySelector('#steamid').value;
+  gameId = document.querySelector('#appid').value;
   const submitBtn = document.querySelector('.header-submit');
   submitBtn.addEventListener('click', submitHandler);
 
-  const achivBlocks = document.querySelectorAll('.achiv');
-
-  achivBlocks.forEach((achivBlock) => {
-    achivBlock.addEventListener('click', trackAchievement);
-    const id = achivBlock.dataset['id'];
-    const note = storage.get(id);
-    const inputNote = achivBlock.querySelector('.achiv-note');
-    inputNote.addEventListener('change', saveNote)
-
-    if (note) {
-      inputNote.value = note;
-    }
-  })
+  const ddgButton = document.querySelector('.ddg-icon');
+  ddgButton.addEventListener('click', (event) => {event.stopPropagation()});
 });
 
 function saveNote() {
