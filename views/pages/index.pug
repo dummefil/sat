@@ -1,5 +1,8 @@
 extends ../layout/layout
 
+block head
+    script(src="login.js")
+
 block body
     div.center
         h1 It’s empty right now
@@ -10,7 +13,14 @@ block body
         //    | And this is crazy
         //    | But here's my number
         //    | So call me, maybe?
-        button(class="steam-btn btn", type="submit" value="Continue")
-            span Continue with
-            include ../../public/SteamIcon.svg
+        div(class="login-wrapper")
+            div(class="login-steamid")
+                div(class="input-row")
+                    input(class="input" id="steamid-input" placeholder="steam id/steam profile url")
+                    include ../../public/icons/question.svg
+                button(class="btn" id="steamid-login" type="submit") Continue
+            .delimiter OR
+            button(class="steam-btn btn" id="steam-login" type="submit" value="Continue")
+                span Continue with
+                include ../../public/icons/steam.svg
 

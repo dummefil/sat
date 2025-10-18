@@ -1,0 +1,9 @@
+extends ../layout/layout
+
+block nav
+    include ../layout/_nav
+
+block body
+    h1 Dashboard
+    p steamid=#{steamid}
+    #{JSON.stringify(games, null, 4)}

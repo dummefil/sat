@@ -12,7 +12,6 @@ async function getGameName(appid) {
     const url = `https://store.steampowered.com/api/appdetails?appids=${appid}&l=en`
     const response  = await fetch(url);
     const json = await response.json();
-    console.log(json);
     return json[appid]?.data?.name;
 }
 
@@ -47,16 +46,14 @@ function parseAchievements(allAchievements, userAchievements, steamid, appid) {
         const unlockedState = userAchiv && userAchiv.achieved === 1;
         const unlocktime = userAchiv ? userAchiv.unlocktime : null;
         const icon = unlockedState ? achiv.icon : achiv.icongray;
-        const tracked = db.exists(`/${steamid}/${appid}/${id}`) ? db.getData(`/${steamid}/${appid}/${id}`) : false;
+        const achievementData = db.exists(`/${steamid}/${appid}/${id}`) ? db.getData(`/${steamid}/${appid}/${id}`) : {};
 
         const achievement = {
             ...achiv,
-            unlocked: unlockedState ? 'Unlocked' : 'Locked',
             unlocktime,
             icon,
             id,
-            tracked,
-            trackedClass: tracked ? 'tracked' : '',
+            ...achievementData,
         };
 
         (unlockedState ? unlocked : locked).push(achievement);
@@ -94,8 +91,10 @@ function buildUrl(url, params) {
 }
 
 module.exports = {
+    getUserAchievements,
     getSteamUserData,
     getGameName,
     getAchievements,
     getGameData,
+    steamApiRequest
 }
