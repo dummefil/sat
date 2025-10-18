@@ -50,7 +50,7 @@ async function dashboardHandler (req, res) {
   const steamid = req.query.steamid;
 
 
-  const recentCount = 10;
+  const recentCount = 40;
   const concurrency = 5;
   const lang = 'russian'
   //todo get 1/2 games you track and 3 latest games
@@ -77,35 +77,32 @@ async function dashboardHandler (req, res) {
   });
   const next = () => { while (active < concurrency && queue.length) queue.shift()(); };
 
-
   const perGameTasks = games.map(g => run(async () => {
-    const r = await steamApiRequest('ISteamUserStats', 'GetPlayerAchievements', 'v1', { steamid, appid: g.appid, l: lang })
-    const list = r?.playerstats?.achievements;
-    if (!Array.isArray(list)) return null;
+    const { appid } = g;
+    const gameData = await getGameData(appid, lang)
+    const achievements = await getAchievements(gameData, appid, steamid, lang);
 
-    const last = list
-        .filter(a => a.achieved === 1 && a.unlocktime > 0)
-        .sort((a, b) => b.unlocktime - a.unlocktime)[0];
+    if (achievements.unlocked.length === achievements.count) return null;
 
-    if (!last) return null;
+    console.log(gameData);
 
     return {
-      appid: g.appid,
-      gameName: r.playerstats?.gameName || g.name || String(g.appid),
-      apiname: last.apiname,
-      unlocktime: last.unlocktime,
-      unlockIso: new Date(last.unlocktime * 1000).toISOString()
-    };
-  }));
+        appid: g.appid,
+        completed: achievements.unlocked.length,
+        total: achievements.count,
+        gameName: gameData.gameName
+      };
+    })
+  );
+
+
+  const userData = await getSteamUserData(steamid);
 
   const perGameLatest = (await Promise.allSettled(perGameTasks))
       .map(x => (x.status === "fulfilled" ? x.value : null))
       .filter(Boolean);
 
-  perGameLatest.sort((a, b) => b.unlocktime - a.unlocktime);
-
-  console.log(perGameLatest, perGameTasks);
-  res.render('pages/dashboard', {steamid, games: perGameLatest });
+  res.render('pages/dashboard', {steamid, games: perGameLatest, userData });
 }
 
 const isValidSteamID = id =>

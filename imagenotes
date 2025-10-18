@@ -1,0 +1,8 @@
+| Назначение                | URL-шаблон                                                                     |
+| ------------------------- | ------------------------------------------------------------------------------ |
+| Маленький баннер          | `https://cdn.akamai.steamstatic.com/steam/apps/{appid}/capsule_231x87.jpg`     |
+| Средний баннер            | `https://cdn.akamai.steamstatic.com/steam/apps/{appid}/capsule_467x181.jpg`    |
+| Большой баннер            | `https://cdn.akamai.steamstatic.com/steam/apps/{appid}/capsule_616x353.jpg`    |
+| Header (из карточки игры) | `https://cdn.akamai.steamstatic.com/steam/apps/{appid}/header.jpg`             |
+| Hero (новая витрина)      | `https://cdn.akamai.steamstatic.com/steam/apps/{appid}/library_hero.jpg`       |
+| Library capsule           | `https://cdn.akamai.steamstatic.com/steam/apps/{appid}/library_600x900_2x.jpg` |

@@ -16,7 +16,7 @@ block header
                         p(class='achiv-all-completed gold-shimmer') All completed!
                     else
                         p Total collected #{achievements.unlocked.length}/#{achievements.count}
-                img(src="https://cdn.cloudflare.steamstatic.com/steam/apps/" + appid + "/library_hero.jpg")
+                img(src=`https://cdn.cloudflare.steamstatic.com/steam/apps/${appid}/library_hero.jpg`)
 
 block body
     if achievements

@@ -5,5 +5,16 @@ block nav
 
 block body
     h1 Dashboard
-    p steamid=#{steamid}
-    #{JSON.stringify(games, null, 4)}
+    p Currently tracking
+    if tracking
+        p witcher or no witcher
+    else
+        p Nothing to see here
+    p And here’s your achiviements you can do:
+    each game in games
+        div
+            img(src=`https://cdn.akamai.steamstatic.com/steam/apps/${game.appid}/header.jpg`)
+            p #{game.appid}
+            p #{game.gameName}
+            p #{game.completed}/#{game.total}
+            button Save
