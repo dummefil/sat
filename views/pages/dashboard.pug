@@ -1,20 +1,29 @@
 extends ../layout/layout
 
+block head
+    script(src="dashboard.js")
+
 block nav
     include ../layout/_nav
 
 block body
-    h1 Dashboard
-    p Currently tracking
-    if tracking
-        p witcher or no witcher
-    else
-        p Nothing to see here
-    p And here’s your achiviements you can do:
-    each game in games
-        div
-            img(src=`https://cdn.akamai.steamstatic.com/steam/apps/${game.appid}/header.jpg`)
-            p #{game.appid}
-            p #{game.gameName}
-            p #{game.completed}/#{game.total}
-            button Save
+    div(class="container-full-width")
+        h1 Dashboard
+        p Currently tracking
+        if tracking
+            p witcher or no witcher
+        else
+            p Nothing to see here
+        p And here’s your achiviements you can do:
+        div(class="grid3")
+            each game in games
+                div(class="relative")
+                    img(class="dashboard-game-image" src=`https://cdn.akamai.steamstatic.com/steam/apps/${game.appid}/header.jpg`)
+                    div(class="dashboard-game-wrapper")
+                        div(class="header-game-details")
+                            p #{game.gameName}
+                            p #{game.completed}/#{game.total}
+                        button(id="btn-show-all-achievements" data-appid=game.appid) Show uncompleted
+            if hasMoreGames
+                div(class="dashboard-more-block")
+                    a Or you can click here to see a list with locked achievements

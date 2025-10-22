@@ -84,13 +84,11 @@ async function dashboardHandler (req, res) {
 
     if (achievements.unlocked.length === achievements.count) return null;
 
-    console.log(gameData);
-
     return {
         appid: g.appid,
         completed: achievements.unlocked.length,
         total: achievements.count,
-        gameName: gameData.gameName
+        gameName: gameData.gameName,
       };
     })
   );
@@ -98,11 +96,14 @@ async function dashboardHandler (req, res) {
 
   const userData = await getSteamUserData(steamid);
 
-  const perGameLatest = (await Promise.allSettled(perGameTasks))
+  let perGameLatest = (await Promise.allSettled(perGameTasks))
       .map(x => (x.status === "fulfilled" ? x.value : null))
       .filter(Boolean);
+  // const hasMoreGames = perGameLatest.length > 6;
+  const hasMoreGames = false;
+  perGameLatest = perGameLatest.slice(0, hasMoreGames ? 5 : 6);
 
-  res.render('pages/dashboard', {steamid, games: perGameLatest, userData });
+  res.render('pages/dashboard', {steamid, games: perGameLatest, userData, hasMoreGames });
 }
 
 const isValidSteamID = id =>
